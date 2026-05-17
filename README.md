@@ -2,6 +2,8 @@
 
 Static legal document hub for the Meridian app. Hosts the privacy policy, terms of service, EULA, and cookie policy as standalone HTML pages served via GitHub Pages.
 
+The docs/ folder contains an update trigger file for each policy,  meaning whenever something changes in how Meridian collects, processes, or shares data, the docs tell you when and which policies need to be updated and why.
+
 ## Structure
 
 ```
@@ -27,13 +29,6 @@ meridian-legal/
 | Terms of Service | `#tos` | [When to update](docs/tos_updates.md) |
 | EULA | `#eula` | [When to update](docs/eula_updates.md) |
 | Cookie Policy | `#cookies` | [When to update](docs/cookie_updates.md) |
-
-## Updating a Policy
-
-1. Edit the relevant file in `policies/`
-2. Update the "Last updated" date at the top of the document
-3. Consult the relevant update trigger doc above to confirm the change warrants an update
-4. Commit and push — GitHub Pages deploys automatically
 
 ## Contact
 

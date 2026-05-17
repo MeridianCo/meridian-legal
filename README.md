@@ -10,7 +10,7 @@ The docs/ folder contains an update trigger file for each policy,  meaning whene
 meridian-legal/
   index.html
   policies/
-    privacy_policy.html
+    privacy-policy.html
     terms-of-service.html
     end-user-license-agreement.html
     cookie-policy.html

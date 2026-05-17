@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meridian — Legal</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500&display=swap"
+      rel="stylesheet">
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --border: #e4e0d8;
+      --text: #1a1a18;
+      --muted: #888880;
+      --accent: #1a1a18;
+      --tab-active-bg: #1a1a18;
+      --tab-active-text: #f7f5f0;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 2rem 2.5rem 0;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .wordmark span {
+      font-style: italic;
+      opacity: 0.5;
+      margin-left: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+    }
+
+    .tab {
+      padding: 0.6rem 1.1rem;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: var(--radius) var(--radius) 0 0;
+      background: transparent;
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      position: relative;
+      bottom: -1px;
+      user-select: none;
+    }
+
+    .tab:hover { color: var(--text); }
+
+    .tab.active {
+      color: var(--tab-active-text);
+      background: var(--tab-active-bg);
+      border-color: var(--border);
+      border-bottom-color: var(--tab-active-bg);
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2.5rem 4rem;
+    }
+
+    .content-frame {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+    }
+
+    .content-frame.active { display: block; }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+  </head>
+  <body>
+
+    <header>
+      <a class="wordmark" href="#">Meridian <span>Legal</span></a>
+      <nav id="tabs">
+        <a class="tab" href="#privacy" data-policy="privacy"
+          data-src="policies/privacy_policy.html">Privacy Policy</a>
+        <a class="tab" href="#tos" data-policy="tos"
+          data-src="policies/tos.html">Terms of Service</a>
+        <a class="tab" href="#eula" data-policy="eula"
+          data-src="policies/eula.html">EULA</a>
+        <a class="tab" href="#cookies" data-policy="cookies"
+          data-src="policies/cookies.html">Cookie Policy</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="content-frame active" id="frame-privacy">
+        <iframe src="policies/privacy_policy.html"
+          title="Privacy Policy"></iframe>
+      </div>
+      <div class="content-frame" id="frame-tos">
+        <iframe src="policies/terms-of-service.html"
+          title="Terms of Service"></iframe>
+      </div>
+      <div class="content-frame" id="frame-eula">
+        <iframe src="policies/end-user-license-agreement.html"
+          title="EULA"></iframe>
+      </div>
+      <div class="content-frame" id="frame-cookies">
+        <iframe src="policies/cookie-policy.html"
+          title="Cookie Policy"></iframe>
+      </div>
+    </main>
+
+    <footer>
+      &copy; 2026 Meridian Prime Corp. All rights reserved.
+    </footer>
+
+    <script>
+    const tabs = document.querySelectorAll('.tab');
+    const frames = document.querySelectorAll('.content-frame');
+
+    function activate(policy) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.policy === policy));
+      frames.forEach(f => f.classList.toggle('active', f.id === 'frame-' + policy));
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        const policy = tab.dataset.policy;
+        history.pushState(null, '', '#' + policy);
+        activate(policy);
+      });
+    });
+
+    // load from URL hash on page load
+    const hash = location.hash.replace('#', '');
+    const valid = ['privacy', 'tos', 'eula', 'cookies'];
+    activate(valid.includes(hash) ? hash : 'privacy');
+  </script>
+
+  </body>
+</html>
